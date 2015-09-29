@@ -1,0 +1,10 @@
+ tcsh code for renaming pdfs and jpgs:
+ mv "$f" "$f:as/ /_/:as/,//:as/-//:as/__/_/:as/_././:as/\'//"
+ 
+ bash code for converting page p to 400px tall jpg:
+ for f in *pdf; do convert.exe -scale x400 "${f}[${p}]" "${f:r}_${p}.jpg"; done
+ 
+ gs command line:
+ /cygdrive/c/Program\ Files\ \(x86\)/gs/gs9.02/bin/gswin32c.exe -q -dQUIET -dSAFER -dBATCH -dNOPAUSE -dNOPROMPT -dMaxBitmap=500000000 -dAlignToPixels=0 -dGridFitTT=2 -sDEVICE=jpeg -dTextAlphaBits=4 -dGraphicsAlphaBits=4 -r150 -sOutputFile=foo-%d.jpg foo.pdf -dFirstPage=1 -dLastPage=6
+ 
+ 
