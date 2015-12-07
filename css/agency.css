@@ -55,6 +55,49 @@ h6 {
     font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
     font-weight: 700;
 }
+table.rcp {
+    border: 2px solid #ff0000;
+    font-size: 12px;
+    border-spacing:0px;
+    empty-cells:show;
+    border-collapse:collapse;
+    margin-left:10px;
+    width:6in;
+    height:4in;
+}
+
+td.rcp {
+    border: 1px solid #ff0000;
+    border-top: 0;
+    padding: 2px 4px;
+}
+
+td.rcp_title {
+    border: 1px solid #ff0000;
+    padding: 2px 4px;
+    font-size: 16px;
+}
+
+td.rcp_righthide {
+    border-right: 1px hidden;
+    border-bottom: 1px solid #ff0000;
+}
+
+td.rcp_vertical {
+  text-align:center;
+  layout-flow: vertical-ideographic;
+  vertical-align: middle;
+  border-left: 1px solid #ff0000;
+  border-bottom: 1px solid #ff0000;
+}
+
+td.rcp_optional {
+    background-color:#E8E8FF;
+    border: 1px solid #ff0000;
+    border-top: 0;
+    padding: 2px 4px;
+    bgcolor:#E8E8FF
+}
 
 .img-centered {
     margin: 0 auto;
