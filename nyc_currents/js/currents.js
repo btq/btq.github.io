@@ -242,7 +242,7 @@
         var projection = createAlbersProjection(topo.bbox[0], topo.bbox[1], topo.bbox[2], topo.bbox[3], view);
         var bounds = createDisplayBounds(topo.bbox[0], topo.bbox[1], topo.bbox[2], topo.bbox[3], projection);
         var styles = [];
-        var maxIntensity = 17;  // velocity at which particle color intensity is maximum
+        var maxIntensity = 8;  // velocity at which particle color intensity is maximum
         var settings = {
             projection: projection,
             displayBounds: bounds,
@@ -635,7 +635,33 @@
                 return reject("NOAA station adjusting the data");
             }
 
-            var interpolate = mvi.inverseDistanceWeighting(points, 5);
+            var checkLandPenalty = function(x0, y0, x1, y1) {
+                var dx = x1 - x0;
+                var dy = y1 - y0;
+                var dist = Math.sqrt(dx * dx + dy * dy);
+                var stepSize = 8; // Optimization: sample every 8 pixels instead of every pixel
+
+                if (dist < stepSize) return 1.0;
+
+                var steps = Math.floor(dist / stepSize);
+                var sx = dx / steps;
+                var sy = dy / steps;
+
+                var cx = x0;
+                var cy = y0;
+
+                for (var i = 1; i < steps; i++) {
+                    cx += sx;
+                    cy += sy;
+                    if (!masks.fieldMask(Math.round(cx), Math.round(cy))) {
+                        return 50.0;
+                    }
+                }
+                return 1.0;
+            };
+
+            // Reduced neighbor count to 5 for maximum performance
+            var interpolate = mvi.inverseDistanceWeighting(points, 5, checkLandPenalty);
 
             var columns = [];
             var bounds = settings.displayBounds;
